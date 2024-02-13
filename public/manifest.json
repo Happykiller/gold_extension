@@ -19,7 +19,7 @@
     "script-src-elem": "self"
   },
   "permissions": [
-    "cookies"
+    "storage"
   ],
   "host_permissions": [
     "http://localhost/*"
