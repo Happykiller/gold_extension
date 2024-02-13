@@ -1,0 +1,34 @@
+{
+  "name": "Gold",
+  "description": "Extension Gold",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "./popup/index.html",
+    "default_title": "Gold Extension",
+    "default_icon": "./medias/icon_extensions.png"
+  },
+  "icons": {
+    "16": "./medias/icon_extensions.png",
+    "48": "./medias/icon_extensions.png",
+    "128": "./medias/icon_extensions.png"
+  },
+  "content_security_policy": {
+    "script-src": "self",
+    "object-src": "self",
+    "script-src-elem": "self"
+  },
+  "permissions": [
+    "cookies"
+  ],
+  "host_permissions": [
+    "http://localhost/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "medias/logo.png" ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "optional_permissions": []
+}
