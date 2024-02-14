@@ -69,6 +69,8 @@ function init() {
 
   echo POPUP_BRANCH:${POPUP_BRANCH}
   echo POPUP_CONF:${POPUP_CONF}
+  echo BACKGROUND_CONF:${BACKGROUND_CONF}
+  echo BACKGROUND_BRANCH:${BACKGROUND_BRANCH}
 }
 
 function copy_popup() {
@@ -76,6 +78,12 @@ function copy_popup() {
   header_c "copy_popup"
   cp -a "$rootDir/temp/gold_extension_popup/dist/." "$rootDir/build/popup/"
   sed -i 's#="/#="./#g' "$rootDir/build/popup/index.html"
+}
+
+function copy_background() {
+  cd $rootDir
+  header_c "copy_background"
+  cp "$rootDir/temp/gold_extension_background/build/background.js" "$rootDir/build/background/"
 }
 
 function copy_public() {
@@ -98,22 +106,57 @@ function generate_popup() {
   npm run build
 }
 
+function generate_background() {
+  cd $rootDir/temp/
+  header_c "generate_background"
+  print_cmd "$(git clone --single-branch --branch $BACKGROUND_BRANCH git@github.com:Happykiller/gold_extension_background.git 2>&1)"
+  if [[ ! -f "$FILE" ]]; then
+    echo "No Such File config background => $BACKGROUND_CONF" && exit
+  fi
+  cp -R "$rootDir/config/background/$BACKGROUND_CONF" "$rootDir/temp/gold_extension_background/src/config/$BACKGROUND_CONF"
+  cd ./gold_extension_background
+  npm install
+  npm run build
+}
+
 function package() {
   header_c "package"
   cd $rootDir/build/
   #tar -zcvf archives/$fileName.tar.gz build --transform s/build/sentinel/
-  zip -r $rootDir/archives/$fileName.zip medias/* popup/* manifest.json
+  zip -r $rootDir/archives/$fileName.zip medias/* background/* popup/* manifest.json
 }
 
 function buildInfo() {
   header_c "buildInfo"
   cd $rootDir
 
+  bg_conf_default=`cat temp/gold_extension_background/src/config/defaults.ts`
+  bg_conf=`cat config/background/$BACKGROUND_CONF`
+  bg_verion=`sed 's/.*"version": "\(.*\)".*/\1/;t;d' temp/gold_extension_background/package.json`
+
   popup_conf_default=`cat temp/gold_extension_popup/.env`
   popup_conf=`cat config/popup/.env.local`
   popup_verion=`sed 's/.*"version": "\(.*\)".*/\1/;t;d' temp/gold_extension_popup/package.json`
 
   cat >> archives/$fileName.md <<EOF 
+
+# BACKGROUND
+
+## Branch
+* \`$BACKGROUND_BRANCH\`
+
+## Version
+* \`$bg_verion\`
+
+## Default config: 
+\`\`\`
+$bg_conf_default
+\`\`\`
+
+## Main config: 
+\`\`\`
+$bg_conf
+\`\`\`
 
 # POPUP 
 
@@ -128,7 +171,7 @@ function buildInfo() {
 $popup_conf_default
 \`\`\`
 
-## Sentinel config: 
+## Main config: 
 \`\`\`
 $popup_conf
 \`\`\`

@@ -13,6 +13,7 @@ function setup() {
   rm -rf build/
   mkdir build/
   mkdir build/popup/
+  mkdir build/background/
 }
 
 separator_c
@@ -21,6 +22,7 @@ start_c
 init
 setup
 copy_popup
+copy_background
 copy_public
 package
 buildInfo

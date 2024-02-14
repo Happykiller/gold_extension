@@ -13,6 +13,8 @@ function setup() {
   rm -rf build/
   mkdir build/
   mkdir build/popup/
+  mkdir build/background/
+  mkdir build/content/
   rm -rf temp/
   mkdir temp/
 }
@@ -25,6 +27,9 @@ setup
 
 generate_popup
 copy_popup
+
+generate_background
+copy_background
 
 copy_public
 
