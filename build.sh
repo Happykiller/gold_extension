@@ -31,6 +31,9 @@ copy_popup
 generate_background
 copy_background
 
+generate_content
+copy_content
+
 copy_public
 
 package
