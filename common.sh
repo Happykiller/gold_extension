@@ -143,8 +143,7 @@ function generate_content() {
 function package() {
   header_c "package"
   cd $rootDir/build/
-  #tar -zcvf archives/$fileName.tar.gz build --transform s/build/sentinel/
-  zip -r $rootDir/archives/$fileName.zip medias/* background/* popup/* manifest.json
+  zip -r $rootDir/archives/$fileName.zip content/* medias/* background/* popup/* manifest.json
 }
 
 function buildInfo() {
