@@ -1,7 +1,7 @@
 #!/bin/bash
 exec 2>&1
 
-fileName="sentinel_$(date '+%Y-%m-%d_%H-%M-%S')"
+fileName="gold_$(date '+%Y-%m-%d_%H-%M-%S')"
 
 # print
 function print_c() {
