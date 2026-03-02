@@ -1,7 +1,7 @@
 {
   "name": "Gold",
   "description": "Extension Gold",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup/index.html",
@@ -15,7 +15,9 @@
         "*://*.happykiller.net/*",
         "*://*.banquepopulaire.fr/*"
       ],
-      "js": ["./content/content.js"],
+      "js": [
+        "./content/content.js"
+      ],
       "all_frames": false,
       "run_at": "document_end"
     }
@@ -45,8 +47,12 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": [ "medias/logo.png" ],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "medias/logo.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
   "optional_permissions": []
