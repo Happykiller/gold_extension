@@ -1,7 +1,8 @@
 #!/bin/bash
 exec 2>&1
 
-fileName="gold_$(date '+%Y-%m-%d_%H-%M-%S')"
+version=$(grep '"version"' "$(dirname "$0")/public/manifest.json" | sed 's/.*"version": "\(.*\)".*/\1/')
+fileName="gold_${version}_$(date '+%Y-%m-%d_%H-%M-%S')"
 
 # print
 function print_c() {
