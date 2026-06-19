@@ -1,0 +1,21 @@
+{
+  "name": "gold_extension",
+  "version": "0.7.5",
+  "private": true,
+  "description": "Build orchestrator for the Gold Chrome extension (assembles popup, background and content modules)",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "package": "node scripts/package.mjs",
+    "clean": "node scripts/clean.mjs"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "dotenv": "^16.4.5",
+    "execa": "^9.5.1"
+  }
+}

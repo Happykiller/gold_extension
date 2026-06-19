@@ -1,7 +1,7 @@
 {
   "name": "Gold",
   "description": "Extension Gold",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup/index.html",

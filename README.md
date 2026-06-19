@@ -68,25 +68,39 @@ For example
 REACT_APP_MODE=dev
 ```
 
+## Prerequisites
+
+* Node.js >= 18 and npm
+* SSH access to the `Happykiller` GitHub org (the build clones the popup/background/content repos over SSH)
+* `npm install` once at the repo root to install the build tooling
+
 ## Build
 
-* The script `./build.sh` do:
-  * Source `.env` and `.env.local`
-  * Clean `./build` and `./temp` 
-  * Generate popup project
-  * Copy popup file to `./build`
-  * Generate background project
-  * Copy background file to `./build`
-  * Generate content project
-  * Copy content file to `./build`
-  * Copy public folder (manifest, etc)
+```bash
+npm run build
+```
+
+`npm run build` does:
+  * Load `.env` then `.env.local` (override)
+  * Clean `./build` and `./temp`
+  * For each module (popup, background, content): clone its repo at the configured branch, inject its config, `npm install`/`npm ci` + build, then copy the artifact into `./build`
+  * Copy the `public/` folder (manifest, medias, etc.) into `./build`
+  * Package `./archives/gold_<version>_<timestamp>.zip` and write a `.md` build report
 
 ## Dev
 
-* The script do:
-  * Source `.env` and `.env.local`
+```bash
+npm run dev
+```
+
+Fast re-assemble that reuses the already-built `./temp` output (run `npm run build` at least once first):
+  * Load `.env` then `.env.local`
   * Clean `./build`
-  * Copy popup file to `./build`
-  * Copy background file to `./build`
-  * Copy content file to `./build`
-  * Copy public folder (manifest, etc)
+  * Copy each module's artifact into `./build`
+  * Copy the `public/` folder
+  * Re-package the zip and report
+
+## Other scripts
+
+* `npm run package` — re-zip an existing `./build` (and regenerate the report) without rebuilding
+* `npm run clean` — remove `./build` and `./temp`
